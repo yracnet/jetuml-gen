@@ -28,6 +28,7 @@ public class SeqDraw {
   }
 
   public int addRoot(SeqRoot item) {
+    rootList.remove(item);
     rootList.add(item);
     return item.getId();
   }

@@ -58,4 +58,12 @@ public class SeqRoot extends SeqId {
   public void complete() {
     complete = true;
   }
+
+  public String asLabel() {
+    String label = name;
+    if (impl != null) {
+      label = label + " -> " + impl;
+    }
+    return label;
+  }
 }

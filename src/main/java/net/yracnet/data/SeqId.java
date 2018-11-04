@@ -11,10 +11,19 @@ package net.yracnet.data;
  */
 public abstract class SeqId {
 
-  private static int ID = 0;
+  private static int ID = -1;
   private final int id = ++ID;
 
   public int getId() {
     return id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof SeqId) {
+      SeqId x = (SeqId) o;
+      return id == x.id;
+    }
+    return false;
   }
 }
