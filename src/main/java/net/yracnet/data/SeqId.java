@@ -13,6 +13,7 @@ public abstract class SeqId {
 
   private static int ID = -1;
   private final int id = ++ID;
+  private boolean ignore = true;
 
   public int getId() {
     return id;
@@ -26,4 +27,14 @@ public abstract class SeqId {
     }
     return false;
   }
+
+  public boolean isIgnore() {
+    return ignore;
+  }
+
+  public void setIgnore(boolean ignore) {
+    this.ignore = ignore;
+  }
+  
+  
 }

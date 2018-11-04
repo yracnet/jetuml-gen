@@ -9,8 +9,15 @@
          "type":"CallNode"
       },
       {
+         "x":0,
+         "y":0,
+         "openBottom":false,
+         "id":33,
+         "type":"CallNode"
+      },
+      {
          "children":[
-            3
+            3, 33
          ],
          "x":350,
          "name":"BeanServ -> BeanImpl",
@@ -20,7 +27,8 @@
       },
       {
          "children":[
-            1
+            1,
+11
          ],
          "x":150,
          "name":"BeanRest",
@@ -34,6 +42,13 @@
          "openBottom":false,
          "id":1,
          "type":"CallNode"
+      },
+      {
+         "x":0,
+         "y":0,
+         "openBottom":false,
+         "id":11,
+         "type":"CallNode"
       }
    ],
    "edges":[
@@ -41,6 +56,13 @@
          "middleLabel":"filterBean(BeanFtr)",
          "start":1,
          "end":3,
+         "type":"CallEdge",
+         "signal":false
+      },
+      {
+         "middleLabel":"????",
+         "start":11,
+         "end":33,
          "type":"CallEdge",
          "signal":false
       }

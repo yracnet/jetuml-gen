@@ -13,17 +13,25 @@ public class SeqCaller {
 
   private SeqRoot from;
   private SeqRoot to;
-  private String method;
+  private String name;
+  private String signature;
   private String result;
   private String note;
 
   public SeqCaller() {
   }
-
-  public SeqCaller(String method, String result) {
-    this.method = method;
-    this.result = result;
+  public SeqCaller(String name) {
+    this.name = name;
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
 
   public SeqRoot getFrom() {
     return from;
@@ -41,12 +49,12 @@ public class SeqCaller {
     this.to = to;
   }
 
-  public String getMethod() {
-    return method;
+  public String getSignature() {
+    return signature;
   }
 
-  public void setMethod(String method) {
-    this.method = method;
+  public void setSignature(String signature) {
+    this.signature = signature;
   }
 
   public String getResult() {
