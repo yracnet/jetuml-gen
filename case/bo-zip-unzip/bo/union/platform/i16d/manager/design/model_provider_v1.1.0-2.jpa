@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" pkg="bo.union.platform.i16d.manager.entity" v="4.4" rws="_1537198632891180" Pws="_1537198632891180" cws="_1537198632891180" persistenceUnitName="i16d-manager" sm="false" xs="false" id="_1537198632841152" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
+    <jpa:entity compositePrimaryKeyClass="I16dDeploymentPK" abs="false" class="I16dDeployment" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_1537198632841152" id="_1537198632875171">
+        <jpa:inf e="true" n="java.io.Serializable"/>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="name" ft="false" id="_1537198632875173">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="NAME_" unique="false" nullable="true" insertable="false" updatable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic optional="false" attribute-type="String" v="true" xvt="" name="description" ft="false" id="_1537198632875174">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="DESCRIPTION" unique="false" nullable="true" insertable="false" updatable="false" length="500"/>
+            </jpa:basic>
+            <jpa:basic optional="false" attribute-type="String" v="true" xvt="" name="type" ft="false" id="_1537198632875175">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="TYPE_" unique="false" nullable="true" insertable="false" updatable="false" length="30"/>
+            </jpa:basic>
+            <jpa:basic optional="false" attribute-type="String" v="true" xvt="" name="subtype" ft="false" id="_1537198632875176">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="SUBTYPE" unique="false" nullable="true" insertable="false" updatable="false" length="30"/>
+            </jpa:basic>
+            <jpa:one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_15372615826625" fetch="EAGER" v="true" xvt="" name="i16dDeploymentExt" id="_1537269294640565">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:cascade>
+                    <jpa:cascade-all/>
+                </jpa:cascade>
+                <jpa:join-column name="DEPLOYMENT_ID" rc="DEPLOYMENT_ID" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
+            </jpa:one-to-one>
+            <jpa:id attribute-type="String" v="true" xvt="" name="deploymentId" ft="false" id="_1537198632875172">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="DEPLOYMENT_ID" unique="false" nullable="false" insertable="true" updatable="false" length="50"/>
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="I16D_DEPLOYMENT_VIEW"/>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="I16dDeploymentExtPK" abs="false" class="I16dDeploymentExt" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_1537198632841152" id="_15372615826625">
+        <jpa:ext e="true" n="bo.union.persist.police.AuditPartial"/>
+        <jpa:inf e="true" n="java.io.Serializable"/>
+        <jpa:attributes>
+            <jpa:basic optional="false" attribute-type="Boolean" v="true" xvt="" name="active" ft="false" id="_153726158266211">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="ACTIVE_" unique="false" nullable="false" insertable="true" updatable="true" length="1"/>
+                <jpa:convert c="bo.union.persist.convert.BooleanConvert" d="false"/>
+            </jpa:basic>
+            <jpa:basic optional="false" attribute-type="Boolean" v="true" xvt="" name="logger" ft="false" id="_153726158266212">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="LOGGER_" unique="false" nullable="false" insertable="true" updatable="true" length="1"/>
+                <jpa:convert c="bo.union.persist.convert.BooleanConvert" d="false"/>
+            </jpa:basic>
+            <jpa:basic optional="false" attribute-type="String" v="true" xvt="" name="versionId" ft="false" id="_153726158266213">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="VERSION_ID" unique="false" nullable="false" insertable="true" updatable="true" length="100"/>
+            </jpa:basic>
+            <jpa:id attribute-type="String" v="true" xvt="" name="deploymentId" ft="false" id="_1537269156705562">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="DEPLOYMENT_ID" unique="false" nullable="false" insertable="true" updatable="false" length="50"/>
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="I16D_DEPLOYMENT_EXT"/>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="I16dBeanMethodPK" abs="false" class="I16dBeanMethod" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_1537198632841152" id="_1537262372156386">
+        <jpa:inf e="true" n="java.io.Serializable"/>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="beanId" ft="false" id="_1537262372156388">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="BEAN_ID" unique="false" nullable="true" insertable="false" updatable="false" length="150"/>
+            </jpa:basic>
+            <jpa:basic optional="false" attribute-type="String" v="true" xvt="" name="name" ft="false" id="_1537262372156389">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="NAME_" unique="false" nullable="false" insertable="false" updatable="false" length="200"/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="description" ft="false" id="_1537262372156390">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="DESCRIPTION" unique="false" nullable="true" insertable="false" updatable="false" length="500"/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="methodSignature" ft="false" id="_1537262372156391">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="METHOD_SIGNATURE" unique="false" nullable="true" insertable="false" updatable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="beanRef" ft="false" id="_1537262372156392">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="BEAN_REF" unique="false" nullable="true" insertable="false" updatable="false" length="300"/>
+            </jpa:basic>
+            <jpa:basic optional="false" attribute-type="String" v="true" xvt="" name="beanName" ft="false" id="_1537262372156393">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="BEAN_NAME" unique="false" nullable="false" insertable="false" updatable="false" length="300"/>
+            </jpa:basic>
+            <jpa:one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_1537262375076396" fetch="EAGER" v="true" xvt="" name="i16dBeanMethodExt" id="_1537269507376567">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:cascade>
+                    <jpa:cascade-all/>
+                </jpa:cascade>
+                <jpa:join-column name="BEAN_METHOD_ID" rc="BEAN_METHOD_ID" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
+            </jpa:one-to-one>
+            <jpa:id attribute-type="String" v="true" xvt="" name="beanMethodId" ft="false" id="_1537262372156387">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="BEAN_METHOD_ID" unique="false" nullable="false" insertable="true" updatable="false" length="200"/>
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="I16D_BEAN_METHOD_VIEW"/>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="I16dBeanMethodExtPK" abs="false" class="I16dBeanMethodExt" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_1537198632841152" id="_1537262375076396">
+        <jpa:ext e="true" n="bo.union.persist.police.AuditPartial"/>
+        <jpa:inf e="true" n="java.io.Serializable"/>
+        <jpa:attributes>
+            <jpa:basic optional="false" attribute-type="Boolean" v="true" xvt="" name="active" ft="false" id="_1537262375076404">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="ACTIVE_" unique="false" nullable="false" insertable="true" updatable="true" table="I16D_BEAN_METHOD_EXT" length="1"/>
+                <jpa:convert c="bo.union.persist.convert.BooleanConvert" d="false"/>
+            </jpa:basic>
+            <jpa:id attribute-type="String" v="true" xvt="" name="beanMethodId" ft="false" id="_1537269502832566">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="BEAN_METHOD_ID" unique="false" nullable="false" insertable="true" updatable="false" length="200"/>
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="I16D_BEAN_METHOD_EXT"/>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="I16dBeanPK" abs="false" class="I16dBean" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_1537198632841152" id="_1537262614973477">
+        <jpa:inf e="true" n="java.io.Serializable"/>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="versionId" ft="false" id="_1537262614973479">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="VERSION_ID" unique="false" nullable="true" insertable="false" updatable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="name" ft="false" id="_1537262614973480">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="NAME_" unique="false" nullable="true" insertable="false" updatable="false" length="200"/>
+            </jpa:basic>
+            <jpa:basic optional="false" attribute-type="String" v="true" xvt="" name="description" ft="false" id="_1537262614973481">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="DESCRIPTION" unique="false" nullable="false" insertable="false" updatable="false" length="500"/>
+            </jpa:basic>
+            <jpa:id attribute-type="String" v="true" xvt="" name="beanId" ft="false" id="_1537262614973478">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="BEAN_ID" unique="false" nullable="false" insertable="true" updatable="false" length="150"/>
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="I16D_BEAN_VIEW"/>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="I16dVersionPK" abs="false" class="I16dVersion" v="true" jbn="false" xre="false" m="false" rootElement="_1537198632841152" id="_1537262614973482">
+        <jpa:inf e="true" n="java.io.Serializable"/>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="deploymentId" ft="false" id="_1537262614973484">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="DEPLOYMENT_ID" unique="false" nullable="true" insertable="true" updatable="true" length="50"/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="version" ft="false" id="_1537262614973485">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="VERSION" unique="false" nullable="true" insertable="true" updatable="true" length="20"/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="name" id="_153754792495473">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="NAME_" unique="false" nullable="true" insertable="true" updatable="true" column-definition="VARCHAR2(50)" length="50"/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="description" id="_153754792566674">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="DESCRIPTION" unique="false" nullable="true" insertable="true" updatable="true" column-definition="VARCHAR2(500)" length="500"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" v="true" xvt="" name="type" id="_1537801266456157">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="DEPLOYMENT_TYPE" unique="false" nullable="true" insertable="true" updatable="true" length="30"/>
+            </jpa:basic>
+            <jpa:id attribute-type="String" v="true" xvt="" name="versionId" ft="false" id="_1537262614973483">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="VERSION_ID" unique="false" nullable="false" insertable="true" updatable="true" length="100"/>
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:nq e="false" name="I16dVersion.findByName">
+            <jpa:query>Select i from I16dVersion i where i.name=:name</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="I16dVersion.findByDescription">
+            <jpa:query>Select i from I16dVersion i where i.description=:description</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="I16dVersion.findByType">
+            <jpa:query>Select i from I16dVersion i where i.type=:type</jpa:query>
+        </jpa:nq>
+        <jpa:table name="I16D_VERSION_VIEW"/>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="I16dPrivilegePK" abs="false" class="I16dPrivilege" v="true" gen="false" xre="false" m="false" rootElement="_1537198632841152" id="_1537956613342">
+        <jpa:ext e="true" n="bo.union.persist.police.AuditPartial"/>
+        <jpa:ath>sipaco</jpa:ath>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="versionId" ft="false" id="_153989755644012">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true" column-definition="VARCHAR2" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_1537198632875171" v="true" xvt="" name="i16dDeployment" id="_1537964659350488">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:join-column name="DEPLOYMENT_ID" rc="" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
+            </jpa:one-to-one>
+            <jpa:one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_1537262614973477" v="true" xvt="" name="i16dBean" id="_1537964730870489">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:join-column name="BEAN_ID" rc="" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
+            </jpa:one-to-one>
+            <jpa:id attribute-type="Long" v="true" xvt="" name="privilegeId" ft="false" id="_153795661337666">
+                <jpa:xwm nil="false" req="false"/>
+                <jpa:xm nil="false" req="false"/>
+                <jpa:column name="PRIVILEGE_ID" unique="false" nullable="false" insertable="true" updatable="false" column-definition="NUMBER" precision="0"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="I16D_SEQ_PRIVILEGE"/>
+                <jpa:sequence-generator name="I16D_SEQ_PRIVILEGE" sequence-name="I16D_SEQ_PRIVILEGE" catalog="" schema="" initial-value="1" allocation-size="50"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:nq e="false" name="I16dPrivilege.findAll">
+            <jpa:query>Select e from I16dPrivilege e</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="I16dPrivilege.findByBeanId">
+            <jpa:query>Select i from I16dPrivilege i where i.beanId=:beanId</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="I16dPrivilege.findByDeploymentId">
+            <jpa:query>Select i from I16dPrivilege i where i.deploymentId=:deploymentId</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="I16dPrivilege.findByDeploymentName">
+            <jpa:query>Select i from I16dPrivilege i where i.deploymentName=:deploymentName</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="I16dPrivilege.findByDeployName">
+            <jpa:query>Select i from I16dPrivilege i where i.deployName=:deployName</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="I16dPrivilege.findByVersionId">
+            <jpa:query>Select i from I16dPrivilege i where i.versionId=:versionId</jpa:query>
+        </jpa:nq>
+        <jpa:table name="I16D_PRIVILEGE"/>
+    </jpa:entity>
+    <jpa:converter c="bo.union.persist.convert.BooleanConvert" a="java.lang.Boolean" f="java.lang.String"/>
+    <jpa:snp loc="BEFORE_PACKAGE" e="true">/**
+ * This file was generated by the Jeddict
+ */</jpa:snp>
+    <jpa:c/>
+    <jpa:wsl>
+        <jpa:ws n="Main" id="_1537198632891180">
+            <i ref="_1537262614973482" x="672" y="23"/>
+            <i ref="_1537198632875171" x="4" y="17"/>
+            <i ref="_1537262372156386" x="321" y="414"/>
+            <i ref="_15372615826625" x="292" y="17"/>
+            <i ref="_1537956613342" x="222" y="245"/>
+            <i ref="_1537262375076396" x="-22" y="440"/>
+            <i ref="_1537262614973477" x="517" y="200"/>
+        </jpa:ws>
+    </jpa:wsl>
+</jpa:entity-mappings>
