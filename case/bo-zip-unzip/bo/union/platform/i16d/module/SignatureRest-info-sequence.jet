@@ -1,1 +1,0 @@
-{"diagram":"SequenceDiagram","nodes":[{"x":0,"y":0,"openBottom":true,"id":1,"type":"CallNode"},{"children":[1],"x":0,"name":"SignatureRest","y":20,"id":0,"type":"ImplicitParameterNode"}],"edges":[],"version":"2.2"}
