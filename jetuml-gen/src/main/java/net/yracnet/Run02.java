@@ -18,8 +18,8 @@ public class Run02 {
 
   public static void main(String[] args) throws Exception {
 
-    //String src = "/media/yracnet/Disk-2/work/dev/github/jetuml-gen/case/bo.zip";
-    String src = "/media/yracnet/Disk-2/work/dev/github/jetuml-gen/case/bo-zip-unzip";
+    //String src = "/media/yracnet/Disk-2/work/dev/github/jetuml/jetuml-gen/case/bo.zip";
+    String src = "/media/yracnet/Disk-2/work/dev/github/jetuml/jetuml-gen/case/bo-zip-unzip";
     Context ctx = new Context(src);
     ctx.addIgnore("*Grouper");
     ctx.addIgnore("EntityManager");

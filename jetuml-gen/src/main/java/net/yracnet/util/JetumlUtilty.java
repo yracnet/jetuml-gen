@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.yracnet.visitor;
+package net.yracnet.util;
 
 import ca.mcgill.cs.jetuml.diagram.Diagram;
 import ca.mcgill.cs.jetuml.diagram.Node;
@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @author yracnet
  */
-public class JetUtil {
+public class JetumlUtilty {
 
   public static ImplicitParameterNode searchOrCreate(String name, Diagram diagram) {
     int count = 0;

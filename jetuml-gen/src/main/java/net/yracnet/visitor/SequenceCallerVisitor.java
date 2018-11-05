@@ -5,6 +5,7 @@
  */
 package net.yracnet.visitor;
 
+import net.yracnet.util.JetumlUtilty;
 import ca.mcgill.cs.jetuml.diagram.SequenceDiagram;
 import ca.mcgill.cs.jetuml.diagram.edges.CallEdge;
 import ca.mcgill.cs.jetuml.diagram.edges.ReturnEdge;
@@ -34,7 +35,7 @@ public class SequenceCallerVisitor extends ProcessVisitor {
     super(ctx, src);
     this.diagram = diagram;
     this.method = method;
-    this.node = (ImplicitParameterNode) JetUtil.searchOrCreate(src.getClassName(), diagram);
+    this.node = (ImplicitParameterNode) JetumlUtilty.searchOrCreate(src.getClassName(), diagram);
     this.callNode = new CallNode();
     this.node.addChild(callNode);
   }
