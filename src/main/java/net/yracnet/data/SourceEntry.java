@@ -35,8 +35,8 @@ public class SourceEntry {
     return file;
   }
 
-  public File getDrawFile(String sufix) {
-    String name = file.getName().replace(".java", sufix + ".jet");
+  public File getNewFile(String sufix) {
+    String name = file.getName().replace(".java", sufix);
     return new File(file.getParentFile(), name);
   }
 

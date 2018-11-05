@@ -46,7 +46,7 @@ public class SourceMethod {
 
   public boolean compare(SourceMethod m) {
     boolean isEquals = JWildcard.matches(m.signature, signature);
-    System.out.println("compare--->" + m.signature + " --- " + signature + " - " + isEquals);
+    //System.out.println("compare--->" + m.signature + " --- " + signature + " - " + isEquals);
     return isEquals;
 //    boolean isName = name.equals(m.name);
 //    boolean isSize = size == m.size;
