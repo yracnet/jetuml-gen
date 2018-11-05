@@ -21,6 +21,8 @@ import net.yracnet.util.ZipUtility;
 public class Context {
 
   private final List<SourceEntry> sourceEntryList;
+  private final List<String> ignore = new ArrayList<>();
+  private final List<String> include = new ArrayList<>();
 
   public Context(String path) throws Exception {
     path = verifySource(path);
@@ -37,6 +39,22 @@ public class Context {
       src = unzip.getPath();
     }
     return src;
+  }
+
+  public void addIgnore(String name) {
+    ignore.add(name);
+  }
+
+  public boolean isIgnore(String name) {
+    return ignore.stream().filter(text -> JWildcard.matches(text, name)).count() > 0;
+  }
+
+  public void addInclude(String name) {
+    include.add(name);
+  }
+
+  public boolean isInclude(String name) {
+    return include.stream().filter(text -> JWildcard.matches(text, name)).count() > 0;
   }
 
   public List<SourceEntry> searchClass(String packageFind, String nameFind) {
@@ -56,5 +74,5 @@ public class Context {
     List<SourceEntry> list = searchClass(pkg, name);
     return list.size() > 0 ? list.get(0) : SourceEntry.NONE;
   }
-  
+
 }

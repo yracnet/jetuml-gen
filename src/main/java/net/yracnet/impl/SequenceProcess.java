@@ -5,18 +5,20 @@
  */
 package net.yracnet.impl;
 
+import net.yracnet.visitor.SequenceDiagramVisitor;
 import net.yracnet.data.SourceEntry;
 import net.yracnet.spec.Context;
-import net.yracnet.spec.Generator;
+import net.yracnet.spec.Process;
 
 /**
  *
  * @author yracnet
  */
-public class ClassGenerator implements Generator {
+public class SequenceProcess implements Process {
 
   @Override
-  public void start(Context ctx, SourceEntry src) {
+  public void process(Context ctx, SourceEntry src) {
+    SequenceDiagramVisitor diagramVisitor = new SequenceDiagramVisitor(ctx, src);
+    diagramVisitor.visit(src.getCunit(), null);
   }
-
 }

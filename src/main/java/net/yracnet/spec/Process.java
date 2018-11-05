@@ -11,7 +11,7 @@ import net.yracnet.data.SourceEntry;
  *
  * @author yracnet
  */
-public interface Generator {
+public interface Process {
 
-    void start(Context ctx, SourceEntry src);
+    void process(Context ctx, SourceEntry src);
 }

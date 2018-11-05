@@ -5,11 +5,10 @@
  */
 package net.yracnet;
 
-import net.yracnet.spec.Generator;
 import net.yracnet.spec.Context;
 import java.util.List;
 import net.yracnet.data.SourceEntry;
-import net.yracnet.impl.SequenceGenerator;
+import net.yracnet.impl.SequenceProcess;
 
 /**
  *
@@ -21,9 +20,13 @@ public class Run02 {
     //String src = "/media/yracnet/Disk-2/work/dev/github/jetuml-gen/case/bo.zip";
     String src = "/media/yracnet/Disk-2/work/dev/github/jetuml-gen/case/bo-zip-unzip";
     Context ctx = new Context(src);
-    List<SourceEntry> rootList = ctx.searchClass("*", "GrouperRest");
-    //Generator generator = new ClassGenerator();
-    Generator generator = new SequenceGenerator();
-    rootList.forEach(item -> generator.start(ctx, item));
+    ctx.addIgnore("*Grouper");
+    ctx.addIgnore("EntityManager");
+    ctx.addIgnore("Query");
+    ctx.addInclude("*Mapper");
+    ctx.addInclude("HTTPStatic");
+    List<SourceEntry> rootList = ctx.searchClass("*", "BeanRest");
+    SequenceProcess process = new SequenceProcess();
+    rootList.forEach(item -> process.process(ctx, item));
   }
 }

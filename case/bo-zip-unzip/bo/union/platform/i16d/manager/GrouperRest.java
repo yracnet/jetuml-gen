@@ -40,30 +40,6 @@ public class GrouperRest {
 	private GrouperServ serv;
 
 	/**
-	 * Informacion de la instancia
-	 *
-	 * @return String informacion
-	 */
-	@GET
-	@Path("info")
-	public String info() {
-		return "Info Service: " + this + " by " + serv;
-	}
-
-	/**
-	 * Listado de Grouper's
-	 *
-	 * @param filter
-	 * @return
-	 * @throws ServiceException
-	 */
-	@POST
-	@Path("filter")
-	public List<Grouper> filterGrouper(GrouperFtr filter) throws ServiceException {
-		return serv.filterGrouper(filter);
-	}
-
-	/**
 	 * Creacion Grouper
 	 *
 	 * @param value
@@ -73,66 +49,9 @@ public class GrouperRest {
 	@POST
 	@Path("create")
 	public Grouper createGrouper(Grouper value) throws ServiceException {
-		try {
 			serv.createGrouper(value);
 			HTTPStatic.info("Se ha guardado el registro: " + value.getName());
 			return value;
-		} catch (ServiceException e) {
-			HTTPStatic.error("No se pudo guardar el registro: " + value);
-			throw e;
-		}
-	}
-
-	/**
-	 * Actualizar Grouper
-	 *
-	 * @param value
-	 * @return
-	 * @throws ServiceException
-	 */
-	@POST
-	@Path("update")
-	public Grouper updateGrouper(Grouper value) throws ServiceException {
-		try {
-			serv.updateGrouper(value);
-			HTTPStatic.info("Se ha actualizado el registro: " + value.getName());
-			return value;
-		} catch (ServiceException e) {
-			HTTPStatic.error("No se pudo actualizar el registro: " + value);
-			throw e;
-		}
-	}
-
-	/**
-	 * Eliminacion Grouper
-	 *
-	 * @param value
-	 * @return
-	 * @throws ServiceException
-	 */
-	@POST
-	@Path("remove")
-	public Grouper removeGrouper(Grouper value) throws ServiceException {
-		try {
-			serv.removeGrouper(value);
-			HTTPStatic.info("Se ha eliminado el registro: " + value.getName());
-			return value;
-		} catch (ServiceException e) {
-			HTTPStatic.error("No se pudo eliminar el registro: " + value);
-			throw e;
-		}
-	}
-
-	/**
-	 * Listado de Grouper's hijos
-	 *
-	 * @param value
-	 * @return
-	 * @throws ServiceException
-	 */
-	@POST
-	@Path("children")
-	public List<Grouper> childrenGrouper(Grouper value) throws ServiceException {
-		return serv.childrenGrouper(value, 10);
+		
 	}
 }

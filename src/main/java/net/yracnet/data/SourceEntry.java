@@ -6,11 +6,9 @@
 package net.yracnet.data;
 
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.FieldDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.TypeDeclaration;
 import java.io.File;
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -18,16 +16,18 @@ import java.util.Optional;
  */
 public class SourceEntry {
 
-  final File file;
-  final String packageName;
-  final String className;
-  final CompilationUnit cunit;
+  private final File file;
+  private final String packageName;
+  private final String className;
+  private String label;
+  private final CompilationUnit cunit;
+  private final Map<String, String> ref = new HashMap<>();
 
   public SourceEntry(File file, CompilationUnit cunit) {
     this.file = file;
     this.cunit = cunit;
     this.className = file.getName().replace(".java", "");
-    //cunit.getInterfaceByName(className).get() != null;
+    this.label = className;
     this.packageName = cunit.getPackageDeclaration().get().getNameAsString();
   }
 
@@ -48,46 +48,31 @@ public class SourceEntry {
     return className;
   }
 
+  public String getLabel() {
+    return label;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
+  }
+
   public CompilationUnit getCunit() {
     return cunit;
+  }
+
+  public void addRef(String name, String value) {
+    ref.put(name, value);
+  }
+
+  public String getRef(String name) {
+    return name ==null? null :  ref.get(name);
   }
 
   @Override
   public String toString() {
     return "SourceEntry{ packageName=" + packageName + ", mainName=" + className + '}';
   }
-//
-//  private TypeDeclaration typeDeclaration;
-//  private MethodDeclaration methodDeclaration;
-//
-//  public TypeDeclaration getTypeDeclaration() {
-//    return typeDeclaration;
-//  }
-//
-//  public void setTypeDeclaration(TypeDeclaration typeDeclaration) {
-//    this.typeDeclaration = typeDeclaration;
-//  }
-//
-//  public FieldDeclaration getTypeDeclarationFieldByName(String fieldName) {
-//    if (typeDeclaration != null) {
-//      Optional<FieldDeclaration> value = typeDeclaration.getFieldByName(fieldName);
-//      if (value.isPresent()) {
-//        return value.get();
-//      }
-//    }
-//    return null;
-//  }
-//
-//  public MethodDeclaration getMethodDeclaration() {
-//    return methodDeclaration;
-//  }
-//
-//  public void setMethodDeclaration(MethodDeclaration methodDeclaration) {
-//    this.methodDeclaration = methodDeclaration;
-//  }
   public static final SourceEntry NONE = null;
-  //public final SourceEntry NONE = new SourceEntry(){
-  //};
 
   public boolean isInterface() {
     return className.endsWith("Serv");

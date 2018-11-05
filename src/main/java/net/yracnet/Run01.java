@@ -5,11 +5,11 @@
  */
 package net.yracnet;
 
-import net.yracnet.spec.Generator;
 import net.yracnet.spec.Context;
 import java.util.List;
 import net.yracnet.data.SourceEntry;
-import net.yracnet.impl.SequenceGenerator;
+import net.yracnet.impl.SequenceProcess;
+import net.yracnet.spec.Process;
 
 /**
  *
@@ -23,9 +23,9 @@ public class Run01 {
     Context ctx = new Context(src);
     List<SourceEntry> rootList = ctx.searchClass("*", "BeanRest");
     //Generator generator = new ClassGenerator();
-    Generator generator = new SequenceGenerator();
+    Process generator = new SequenceProcess();
     //rootList.forEach(System.out::println);
-    rootList.forEach(item -> generator.start(ctx, item));
+    rootList.forEach(item -> generator.process(ctx, item));
   }
 
 }

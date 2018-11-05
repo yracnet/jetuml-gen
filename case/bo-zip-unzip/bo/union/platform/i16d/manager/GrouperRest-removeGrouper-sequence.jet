@@ -1,1 +1,1 @@
-{"diagram":"SequenceDiagram","version":"2.2","nodes":[{"id":0,"x":10,"y":30,"type":"ImplicitParameterNode","name":"GrouperRest","children":[]},{"id":1,"x":160,"y":30,"type":"ImplicitParameterNode","name":"GrouperImpl -> GrouperImpl","children":[]},{"id":3,"x":460,"y":30,"type":"ImplicitParameterNode","name":"GrouperLocal","children":[]},{"id":4,"x":610,"y":30,"type":"ImplicitParameterNode","name":"GrouperMapper","children":[]}],"edges":[]}
+{"diagram":"SequenceDiagram","nodes":[],"edges":[],"version":"2.2"}
