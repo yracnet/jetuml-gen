@@ -12,6 +12,7 @@ import net.yracnet.visitor.SequenceDiagramVisitor;
 import net.yracnet.data.SourceEntry;
 import net.yracnet.spec.Context;
 import net.yracnet.spec.Process;
+import net.yracnet.spec.Writter;
 
 /**
  *
@@ -19,18 +20,14 @@ import net.yracnet.spec.Process;
  */
 public class SequenceProcess implements Process {
 
-  public static class FXStarter extends Application {
+	private Writter out;
 
-    @Override
-    public void init() {
+	public SequenceProcess(Writter out) {
+		this.out = out;
     }
 
     @Override
-    public void start(Stage primaryStage) {
-    }
-  }
-
-  public void startFx() {
+	public void start() {
     try {
       System.setProperty("apple.laf.useScreenMenuBar", "true");
       new Thread(() -> Application.launch(FXStarter.class)).start();
@@ -38,16 +35,29 @@ public class SequenceProcess implements Process {
     }
   }
 
-  public void closeFx() {
+	@Override
+	public void process(Context ctx, SourceEntry src) {
+		SequenceDiagramVisitor diagramVisitor = new SequenceDiagramVisitor(ctx, src, out);
+		diagramVisitor.visit(src.getCunit(), null);
+		out.writeResume();
+	}
+
+	@Override
+	public void close() {
     try {
       Platform.exit();
     } finally {
     }
   }
 
+	public static class FXStarter extends Application {
+
   @Override
-  public void process(Context ctx, SourceEntry src) {
-    SequenceDiagramVisitor diagramVisitor = new SequenceDiagramVisitor(ctx, src);
-    diagramVisitor.visit(src.getCunit(), null);
+		public void init() {
+		}
+
+		@Override
+		public void start(Stage primaryStage) {
+		}
   }
 }

@@ -67,6 +67,7 @@ public class SequenceCallerVisitor extends ProcessVisitor {
     Object value = null;
     if (isMethod) {
       value = super.visit(n, arg);
+			method.setLabel(n.getSignature().asString());
       result = n.getTypeAsString();
     }
     return value;
@@ -94,43 +95,13 @@ public class SequenceCallerVisitor extends ProcessVisitor {
         SequenceCallerVisitor visitor = new SequenceCallerVisitor(ctx, src2, method2, diagram);
         visitor.visit(src2.getCunit(), arg);
         CallNode callNodeTo = visitor.getCallNode();
+				//callEdge.setMiddleLabel(method);
+				callEdge.setMiddleLabel(method2.getLabel());
         returnEdge.setMiddleLabel(visitor.getResult());
         callEdge.connect(callNode, callNodeTo, diagram);
         returnEdge.connect(callNodeTo, callNode, diagram);
       }
     }
-//
-//    String service = "?";
-////    String method = n.getNameAsString();
-//    String result = "?";
-//    Expression e = n.getScope().isPresent() ? n.getScope().get() : null;
-//    if (e instanceof NameExpr) {
-//      NameExpr ne = (NameExpr) e;
-//      service = ne.getNameAsString();
-//      String type = src.getRef(service);
-//      if (type != null) {
-//        type = type.replace("Serv", "Impl");
-//        SourceEntry src2 = ctx.findClass("*", type);
-//        if (src2 != null) {
-//          CallEdge callEdge = new CallEdge();
-//          callEdge.setMiddleLabel(method);
-//          ReturnEdge returnEdge = new ReturnEdge();
-//          returnEdge.setMiddleLabel(result);
-//
-//          diagram.addEdge(callEdge);
-//          diagram.addEdge(returnEdge);
-//
-//          //System.out.println("* MethodCallExpr > " + service + " - " + method + " : " + result + "--" + type + " - " + src2);
-//          SourceMethod method2 = new SourceMethod(n);
-//          SequenceCallerVisitor visitor = new SequenceCallerVisitor(ctx, src2, method2, diagram);
-//          visitor.visit(src2.getCunit(), arg);
-//          CallNode callNodeTo = visitor.getCallNode();
-//          //returnEdge.setMiddleLabel(visitor.getResult());
-//          callEdge.connect(callNode, callNodeTo, diagram);
-//          returnEdge.connect(callNodeTo, callNode, diagram);
-//        }
-//      }
-//    }
   }
 
 }

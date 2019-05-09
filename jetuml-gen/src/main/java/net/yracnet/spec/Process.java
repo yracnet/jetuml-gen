@@ -13,5 +13,9 @@ import net.yracnet.data.SourceEntry;
  */
 public interface Process {
 
+	void start();
+
     void process(Context ctx, SourceEntry src);
+
+	void close();
 }

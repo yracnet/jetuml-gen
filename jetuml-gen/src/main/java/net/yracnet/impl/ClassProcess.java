@@ -16,7 +16,15 @@ import net.yracnet.spec.Process;
 public class ClassProcess implements Process {
 
   @Override
+	public void start() {
+	}
+
+	@Override
   public void process(Context ctx, SourceEntry src) {
+	}
+
+	@Override
+	public void close() {
   }
 
 }

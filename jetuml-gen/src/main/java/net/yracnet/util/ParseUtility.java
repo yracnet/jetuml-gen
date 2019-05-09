@@ -20,35 +20,37 @@ import net.yracnet.data.SourceEntry;
  */
 public class ParseUtility {
 
-  static FileFilter JAVA_FILTER = (File file) -> {
-    return file.isDirectory() || file.getName().endsWith(".java");
-  };
+    static FileFilter JAVA_FILTER = (File file) -> {
+        return file.isDirectory() || file.getName().endsWith(".java");
+    };
 
-  public static List<SourceEntry> processDirectory(File root) {
-    List<SourceEntry> result = new ArrayList<>();
-    for (File item : root.listFiles(JAVA_FILTER)) {
-      processDirectory(item, result);
-    }
-    return result;
-  }
-
-  public static void processDirectory(File item, List<SourceEntry> list) {
-    if (item.isDirectory()) {
-      for (File subitem : item.listFiles(JAVA_FILTER)) {
-        processDirectory(subitem, list);
-      }
-    } else {
-      
-      try {
-        CompilationUnit cu = JavaParser.parse(item);
-        SourceEntry entry = new SourceEntry(item, cu);
-        list.add(entry);
-        //System.out.println("--->" + item + " - " + entry);
-      } catch (FileNotFoundException e) {
-        System.out.println("Error: " + e.getMessage());
-      }
+    public static List<SourceEntry> processDirectory(List<File> rootList) {
+        List<SourceEntry> result = new ArrayList<>();
+        rootList.forEach(root -> {
+            for (File item : root.listFiles(JAVA_FILTER)) {
+                processDirectory(item, result);
+            }
+        });
+        return result;
     }
 
-  }
+    public static void processDirectory(File item, List<SourceEntry> list) {
+        if (item.isDirectory()) {
+            for (File subitem : item.listFiles(JAVA_FILTER)) {
+                processDirectory(subitem, list);
+            }
+        } else {
+
+            try {
+                CompilationUnit cu = JavaParser.parse(item);
+                SourceEntry entry = new SourceEntry(item, cu);
+                list.add(entry);
+                //System.out.println("--->" + item + " - " + entry);
+            } catch (FileNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
+    }
 
 }

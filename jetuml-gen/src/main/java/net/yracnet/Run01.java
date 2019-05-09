@@ -5,11 +5,13 @@
  */
 package net.yracnet;
 
+import java.io.File;
 import net.yracnet.spec.Context;
 import java.util.List;
 import net.yracnet.data.SourceEntry;
 import net.yracnet.impl.SequenceProcess;
-import net.yracnet.spec.Process;
+import net.yracnet.impl.WritteReport;
+import net.yracnet.spec.Writter;
 
 /**
  *
@@ -23,9 +25,10 @@ public class Run01 {
     Context ctx = new Context(src);
     List<SourceEntry> rootList = ctx.searchClass("*", "BeanRest");
     //Generator generator = new ClassGenerator();
-    Process generator = new SequenceProcess();
+		Writter write = new WritteReport(new File(src + "/report.html"));
+		SequenceProcess process = new SequenceProcess(write);
     //rootList.forEach(System.out::println);
-    rootList.forEach(item -> generator.process(ctx, item));
+		rootList.forEach(item -> process.process(ctx, item));
   }
 
 }

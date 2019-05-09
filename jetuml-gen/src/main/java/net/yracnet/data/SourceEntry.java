@@ -16,65 +16,65 @@ import java.util.Map;
  */
 public class SourceEntry {
 
-  private final File file;
-  private final String packageName;
-  private final String className;
-  private String label;
-  private final CompilationUnit cunit;
-  private final Map<String, String> ref = new HashMap<>();
+    private final File file;
+    private final String packageName;
+    private final String className;
+    private String label;
+    private final CompilationUnit cunit;
+    private final Map<String, String> ref = new HashMap<>();
 
-  public SourceEntry(File file, CompilationUnit cunit) {
-    this.file = file;
-    this.cunit = cunit;
-    this.className = file.getName().replace(".java", "");
-    this.label = className;
-    this.packageName = cunit.getPackageDeclaration().get().getNameAsString();
-  }
+    public SourceEntry(File file, CompilationUnit cunit) {
+        this.file = file;
+        this.cunit = cunit;
+        this.className = file.getName().replace(".java", "");
+        this.label = className;
+        this.packageName = cunit.getPackageDeclaration().get().getNameAsString();
+    }
 
-  public File getFile() {
-    return file;
-  }
+    public File getFile() {
+        return file;
+    }
 
-  public File getNewFile(String sufix) {
-    String name = file.getName().replace(".java", sufix);
-    return new File(file.getParentFile(), name);
-  }
+    public File getNewFile(String sufix) {
+        String name = file.getName().replace(".java", sufix);
+        return new File(file.getParentFile(), name);
+    }
 
-  public String getPackageName() {
-    return packageName;
-  }
+    public String getPackageName() {
+        return packageName;
+    }
 
-  public String getClassName() {
-    return className;
-  }
+    public String getClassName() {
+        return className;
+    }
 
-  public String getLabel() {
-    return label;
-  }
+    public String getLabel() {
+        return label;
+    }
 
-  public void setLabel(String label) {
-    this.label = label;
-  }
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-  public CompilationUnit getCunit() {
-    return cunit;
-  }
+    public CompilationUnit getCunit() {
+        return cunit;
+    }
 
-  public void addRef(String name, String value) {
-    ref.put(name, value);
-  }
+    public void addRef(String name, String value) {
+        ref.put(name, value);
+    }
 
-  public String getRef(String name) {
-    return name ==null? null :  ref.get(name);
-  }
+    public String getRef(String name) {
+        return name == null ? null : ref.get(name);
+    }
 
-  @Override
-  public String toString() {
-    return "SourceEntry{ packageName=" + packageName + ", mainName=" + className + '}';
-  }
-  public static final SourceEntry NONE = null;
+    @Override
+    public String toString() {
+        return "SourceEntry{ packageName=" + packageName + ", mainName=" + className + '}';
+    }
+    public static final SourceEntry NONE = null;
 
-  public boolean isInterface() {
-    return className.endsWith("Serv");
-  }
+    public boolean isInterface() {
+        return className.endsWith("Serv");
+    }
 }
