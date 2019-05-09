@@ -168,7 +168,7 @@ public class WritteReport implements Writter {
 					boolean isEnd = e.getParent() == nodeTo;
 					if (isFrom && isEnd) {
 						System.out.println("caller:--->" + edge.getMiddleLabel());
-						callLength = edge.getMiddleLabel().length();
+						callLength = edge.getMiddleLabel() == null? 0 : edge.getMiddleLabel().length();
 					}
 				}
 				List<ReturnEdge> returnEdgeList = filterArray(diagram.edges(), ReturnEdge.class);
