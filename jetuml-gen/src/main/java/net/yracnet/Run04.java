@@ -20,11 +20,11 @@ import net.yracnet.spec.Writter;
 public class Run04 {
 
     public static void main(String[] args) throws Exception {
-        String srcBase = "/work/dev/CORE-00/param/param-manager";
+        String srcBase = "/work/dev/bcb-01/R08/app-mrp/mrp-portal";
         String srcArray[] = {
-            srcBase + "/param-manager-impl/src/main/java",
-            srcBase + "/param-manager-serv/src/main/java",
-            srcBase + "/param-manager-view/src/main/java",
+            srcBase + "/mrp-portal-rest/src/main/java",
+            srcBase + "/mrp-portal-logic/src/main/java",
+            srcBase + "/mrp-portal-serv/src/main/java",
         };
         Context ctx = new Context(srcArray);
         ctx.addIgnore("*Grouper");
@@ -47,7 +47,7 @@ public class Run04 {
         //ctx.addIgnore("ValueCredential");
         //ctx.addIgnore("ValueCertificate");
 
-        ctx.addInclude("*Mapper");
+        //ctx.addInclude("*Mapper");
         //ctx.addInclude("*Serv");
         //ctx.addInclude("*Ftr");
         //ctx.addInclude("HTTPStatic");
