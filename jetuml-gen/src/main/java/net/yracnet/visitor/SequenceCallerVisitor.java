@@ -1,3 +1,18 @@
+/**
+ * Copyright © ${project.inceptionYear} ${owner} (${email})
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,84 +39,79 @@ import net.yracnet.spec.Context;
  * @author yracnet
  */
 public class SequenceCallerVisitor extends ProcessVisitor {
+	private final SequenceDiagram diagram;
+	private final SourceMethod method;
+	private final ImplicitParameterNode node;
+	private final CallNode callNode;
+	private String result = "???";
 
-  private final SequenceDiagram diagram;
-  private final SourceMethod method;
-  private final ImplicitParameterNode node;
-  private final CallNode callNode;
-  private String result = "???";
+	public SequenceCallerVisitor(Context ctx, SourceEntry src, SourceMethod method, SequenceDiagram diagram) {
+		super(ctx, src);
+		this.diagram = diagram;
+		this.method = method;
+		this.node = (ImplicitParameterNode) JetumlUtilty.searchOrCreate(src.getClassName(), diagram);
+		this.callNode = new CallNode();
+		this.node.addChild(callNode);
+	}
 
-  public SequenceCallerVisitor(Context ctx, SourceEntry src, SourceMethod method, SequenceDiagram diagram) {
-    super(ctx, src);
-    this.diagram = diagram;
-    this.method = method;
-    this.node = (ImplicitParameterNode) JetumlUtilty.searchOrCreate(src.getClassName(), diagram);
-    this.callNode = new CallNode();
-    this.node.addChild(callNode);
-  }
+	public ImplicitParameterNode getImplicitParameterNode() {
+		return node;
+	}
 
-  public ImplicitParameterNode getImplicitParameterNode() {
-    return node;
-  }
+	public CallNode getCallNode() {
+		return callNode;
+	}
 
-  public CallNode getCallNode() {
-    return callNode;
-  }
+	public String getResult() {
+		return result;
+	}
 
-  public String getResult() {
-    return result;
-  }
+	@Override
+	public Object visit(ClassOrInterfaceDeclaration n, Object arg) {
+		String name = n.getNameAsString();
+		node.setName(name);
+		System.out.println("**************ClassOrInterfaceDeclaration: " + name + " - " + node);
+		return super.visit(n, arg);
+	}
 
-  @Override
-  public Object visit(ClassOrInterfaceDeclaration n, Object arg) {
-    String name = n.getNameAsString();
-    node.setName(name);
-    System.out.println("**************ClassOrInterfaceDeclaration: " + name + " - " + node);
-    return super.visit(n, arg);
-  }
-
-  @Override
-  public Object visit(MethodDeclaration n, Object arg) {
-    SourceMethod other = new SourceMethod(n);
-    boolean isMethod = other.compare(method);
-    Object value = null;
-    if (isMethod) {
-      value = super.visit(n, arg);
+	@Override
+	public Object visit(MethodDeclaration n, Object arg) {
+		SourceMethod other = new SourceMethod(n);
+		boolean isMethod = other.compare(method);
+		Object value = null;
+		if (isMethod) {
+			value = super.visit(n, arg);
 			method.setLabel(n.getSignature().asString());
-      result = n.getTypeAsString();
-    }
-    return value;
-  }
+			result = n.getTypeAsString();
+		}
+		return value;
+	}
 
-  @Override
-  public void postVisit(MethodCallExpr n, Object arg, String scope, String method) {
-
-    String type = src.getRef(scope);
-    System.out.println("===============" + scope + " - " + method);
-    if (type != null) {
-      type = type.replace("Serv", "Impl");
-      SourceEntry src2 = ctx.findClass("*", type);
-      if (src2 != null) {
-        CallEdge callEdge = new CallEdge();
-        callEdge.setMiddleLabel(method);
-        ReturnEdge returnEdge = new ReturnEdge();
-        returnEdge.setMiddleLabel("???");
-
-        diagram.addEdge(callEdge);
-        diagram.addEdge(returnEdge);
-
-        System.out.println("* MethodCallExpr > " + scope + " - " + method  + "--" + type + " - " + src2);
-        SourceMethod method2 = new SourceMethod(n);
-        SequenceCallerVisitor visitor = new SequenceCallerVisitor(ctx, src2, method2, diagram);
-        visitor.visit(src2.getCunit(), arg);
-        CallNode callNodeTo = visitor.getCallNode();
-				//callEdge.setMiddleLabel(method);
+	@Override
+	public void postVisit(MethodCallExpr n, Object arg, String scope, String method) {
+		String type = src.getRef(scope);
+		System.out.println("===============" + scope + " - " + method);
+		if (type != null) {
+			type = type.replace("Serv", "Impl");
+			SourceEntry src2 = ctx.findClass("*", type);
+			if (src2 != null) {
+				CallEdge callEdge = new CallEdge();
+				callEdge.setMiddleLabel(method);
+				ReturnEdge returnEdge = new ReturnEdge();
+				returnEdge.setMiddleLabel("???");
+				diagram.addEdge(callEdge);
+				diagram.addEdge(returnEdge);
+				System.out.println("* MethodCallExpr > " + scope + " - " + method + "--" + type + " - " + src2);
+				SourceMethod method2 = new SourceMethod(n);
+				SequenceCallerVisitor visitor = new SequenceCallerVisitor(ctx, src2, method2, diagram);
+				visitor.visit(src2.getCunit(), arg);
+				CallNode callNodeTo = visitor.getCallNode();
+				// callEdge.setMiddleLabel(method);
 				callEdge.setMiddleLabel(method2.getLabel());
-        returnEdge.setMiddleLabel(visitor.getResult());
-        callEdge.connect(callNode, callNodeTo, diagram);
-        returnEdge.connect(callNodeTo, callNode, diagram);
-      }
-    }
-  }
-
+				returnEdge.setMiddleLabel(visitor.getResult());
+				callEdge.connect(callNode, callNodeTo, diagram);
+				returnEdge.connect(callNodeTo, callNode, diagram);
+			}
+		}
+	}
 }

@@ -1,3 +1,18 @@
+/**
+ * Copyright © ${project.inceptionYear} ${owner} (${email})
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,70 +34,69 @@ import net.yracnet.spec.Context;
  * @author yracnet
  */
 public class ProcessVisitor extends GenericVisitorAdapter {
+	protected final Context ctx;
+	protected final SourceEntry src;
 
-  protected final Context ctx;
-  protected final SourceEntry src;
+	public ProcessVisitor(Context ctx, SourceEntry src) {
+		this.ctx = ctx;
+		this.src = src;
+	}
 
-  public ProcessVisitor(Context ctx, SourceEntry src) {
-    this.ctx = ctx;
-    this.src = src;
-  }
+	@Override
+	public Object visit(VariableDeclarator n, Object arg) {
+		addReference(n, arg);
+		Object result = super.visit(n, arg);
+		postVisit(n, arg);
+		return result;
+	}
 
-  @Override
-  public Object visit(VariableDeclarator n, Object arg) {
-    addReference(n, arg);
-    Object result = super.visit(n, arg);
-    postVisit(n, arg);
-    return result;
-  }
+	private void addReference(VariableDeclarator n, Object arg) {
+		String name = n.getNameAsString();
+		String type = n.getTypeAsString();
+		boolean isIgnore = ctx.isIgnore(type);
+		SourceEntry source = ctx.findClass("*", type);
+		if (!isIgnore && source != null) {
+			src.addRef(name, type);
+			// System.out.println("ADD VariableDeclarator > " + n);
+		}
+	}
 
-  private void addReference(VariableDeclarator n, Object arg) {
-    String name = n.getNameAsString();
-    String type = n.getTypeAsString();
-    boolean isIgnore = ctx.isIgnore(type);
-    SourceEntry source = ctx.findClass("*", type);
-    if (!isIgnore && source != null) {
-      src.addRef(name, type);
-      //System.out.println("ADD VariableDeclarator > " + n);
-    }
-  }
+	public void postVisit(VariableDeclarator n, Object arg) {
+	}
 
-  public void postVisit(VariableDeclarator n, Object arg) {
-  }
+	@Override
+	public Object visit(MethodCallExpr n, Object arg) {
+		String value[] = addReference(n, arg);
+		Object result = super.visit(n, arg);
+		postVisit(n, arg, value[0], value[1]);
+		return result;
+	}
 
-  @Override
-  public Object visit(MethodCallExpr n, Object arg) {
-    String value[] = addReference(n, arg);
-    Object result = super.visit(n, arg);
-    postVisit(n, arg, value[0], value[1]);
-    return result;
-  }
+	public void postVisit(MethodCallExpr n, Object arg, String scope, String name) {
+	}
 
-  public void postVisit(MethodCallExpr n, Object arg, String scope, String name) {
-  }
+	private String[] addReference(MethodCallExpr n, Object arg) {
+		String result[] = new String[]{null, n.getNameAsString()};
+		Expression e = n.getScope().isPresent() ? n.getScope().get() : null;
+		if (e instanceof NameExpr) {
+			NameExpr ne = (NameExpr) e;
+			String scope = ne.getNameAsString();
+			result[0] = scope;
+			boolean isInclude = ctx.isInclude(scope);
+			if (isInclude) {
+				src.addRef(scope, scope);
+			}
+		}
+		return result;
+	}
 
-  private String[] addReference(MethodCallExpr n, Object arg) {
-    String result[] = new String[]{null, n.getNameAsString()};
-    Expression e = n.getScope().isPresent() ? n.getScope().get() : null;
-    if (e instanceof NameExpr) {
-      NameExpr ne = (NameExpr) e;
-      String scope = ne.getNameAsString();
-      result[0] = scope;
-      boolean isInclude = ctx.isInclude(scope);
-      if (isInclude) {
-        src.addRef(scope, scope);
-      }
-    }
-    return result;
-  }
+	@Override
+	public Object visit(MethodDeclaration n, Object arg) {
+		Object result = super.visit(n, arg);
+		postVisit(n, arg);
+		return result;
+	}
 
-  @Override
-  public Object visit(MethodDeclaration n, Object arg) {
-    Object result = super.visit(n, arg);
-    postVisit(n, arg);
-    return result;
-  }
-
-  public void postVisit(MethodDeclaration n, Object arg) {
-  }
+	public void postVisit(MethodDeclaration n, Object arg) {
+	}
 }

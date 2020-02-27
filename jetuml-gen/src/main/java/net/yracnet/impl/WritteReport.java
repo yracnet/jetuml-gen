@@ -1,3 +1,18 @@
+/**
+ * Copyright © ${project.inceptionYear} ${owner} (${email})
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -30,9 +45,7 @@ import net.yracnet.util.JetumlUtilty;
  * @author wyujra
  */
 public class WritteReport implements Writter {
-
 	class ItemFile {
-
 		String title;
 		File file;
 		File image;
@@ -57,9 +70,9 @@ public class WritteReport implements Writter {
 		if (fileName.contains("-info")) {
 			return;
 		}
-		//ItemFile itemRest = search(root.child, "REST: " + keyName[0]);
+		// ItemFile itemRest = search(root.child, "REST: " + keyName[0]);
 		ItemFile itemRest = search(root.child, "Servicio \"" + keyName[0] + "\"");
-		//ItemFile itemServ = search(itemRest.child, "Servicio &lt;" + keyName[0] + "." + keyName[1] + "&gt;");
+		// ItemFile itemServ = search(itemRest.child, "Servicio &lt;" + keyName[0] + "." + keyName[1] + "&gt;");
 		ItemFile itemServ = search(itemRest.child, "Metodo \"" + keyName[1] + "\"");
 		if (fileName.endsWith(".png")) {
 			itemServ.image = file;
@@ -67,7 +80,6 @@ public class WritteReport implements Writter {
 			itemServ.file = file;
 		}
 	}
-
 	private final File file;
 	private ItemFile root = new ItemFile();
 
@@ -109,7 +121,7 @@ public class WritteReport implements Writter {
 		try {
 			System.out.println("SAVE RESUME========>" + file);
 			PrintWriter html = new PrintWriter(file);
-			//html.println("<h1>" + root.title + "</h1>");
+			// html.println("<h1>" + root.title + "</h1>");
 			for (ItemFile item : root.child) {
 				processWrite(html, item, 2);
 			}
@@ -130,7 +142,6 @@ public class WritteReport implements Writter {
 				BufferedImage bimg = ImageIO.read(root.image);
 				h = bimg.getHeight() * w / bimg.getWidth();
 			} catch (IOException e) {
-
 			}
 			html.println("<img  style='width:" + w + "px; height:" + h + "px'  src='" + root.image.getPath() + "' alt='" + title + "' />");
 		}
@@ -150,10 +161,10 @@ public class WritteReport implements Writter {
 	}
 
 	private static void sequenceDiagramSort(Diagram diagram) {
-		//System.out.println("---->" + diagram);
+		// System.out.println("---->" + diagram);
 		if (diagram instanceof SequenceDiagram) {
 			List<ImplicitParameterNode> nodeList = filterArray(diagram.rootNodes(), ImplicitParameterNode.class);
-			//System.out.println("---->" + nodeList);
+			// System.out.println("---->" + nodeList);
 			ImplicitParameterNode[] nodeArray = nodeList.toArray(new ImplicitParameterNode[0]);
 			for (int i = 1; i < nodeArray.length; i++) {
 				ImplicitParameterNode nodeFrom = nodeArray[i - 1];
@@ -168,7 +179,7 @@ public class WritteReport implements Writter {
 					boolean isEnd = e.getParent() == nodeTo;
 					if (isFrom && isEnd) {
 						System.out.println("caller:--->" + edge.getMiddleLabel());
-						callLength = edge.getMiddleLabel() == null? 0 : edge.getMiddleLabel().length();
+						callLength = edge.getMiddleLabel() == null ? 0 : edge.getMiddleLabel().length();
 					}
 				}
 				List<ReturnEdge> returnEdgeList = filterArray(diagram.edges(), ReturnEdge.class);
@@ -183,7 +194,6 @@ public class WritteReport implements Writter {
 					}
 				}
 				int length = returnLength > callLength ? returnLength : callLength;
-
 				int lastX = nodeFrom.position().getX();
 				if (length == 0) {
 					nodeTo.position().setX(lastX + 140);
@@ -193,7 +203,5 @@ public class WritteReport implements Writter {
 				}
 			}
 		}
-
 	}
-
 }

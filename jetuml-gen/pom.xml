@@ -31,16 +31,24 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>internal</id>
-            <url>http://nexus.internal.union/repository/internal/</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>internal</id>
-            <url>http://nexus.internal.union/repository/internal/</url>
-        </pluginRepository>
-    </pluginRepositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.yracnet.maven</groupId>
+                <artifactId>qualitycode-maven-plugin</artifactId>
+                <version>0.1.1</version>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <skipAnalyzer>true</skipAnalyzer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
